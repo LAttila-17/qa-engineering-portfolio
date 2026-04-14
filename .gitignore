@@ -7,5 +7,3 @@ automation/playwright/blob-report/
 
 automation/playwright/.auth/
 automation/playwright/.cache/
-
-automation/playwright/test-data/loginData.ts
