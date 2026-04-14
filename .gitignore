@@ -1,7 +1,11 @@
 # Playwright
 node_modules/
+
 automation/playwright/test-results/
 automation/playwright/playwright-report/
 automation/playwright/blob-report/
+
 automation/playwright/.auth/
 automation/playwright/.cache/
+
+automation/playwright/test-data/loginData.ts
