@@ -1,5 +1,5 @@
 {
-  "name": "playwright automation tests",
+  "name": "playwright-automation-tests",
   "version": "1.0.0",
   "description": "Playwright-based UI test automation for QA Engineering Portfolio",
   "main": "index.js",
