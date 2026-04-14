@@ -4,7 +4,7 @@
 
 **Check the latest automated test results here:**
 
-🔗 [![Playwright Test Report](https://img.shields.io/badge/Playwright%20Test%20Report-View%20Results-blue)](https://LAttila-17.github.io/qa-playwright-portfolio/)
+🔗 [![Playwright Test Report](https://img.shields.io/badge/Playwright%20Test%20Report-View%20Results-blue)](https://LAttila-17.github.io/qa-engineering-portfolio/)
 
 *This live dashboard is automatically updated daily via GitHub Actions and published using GitHub Pages.*
 
@@ -14,14 +14,14 @@
 
 ### Test Execution (on push)
 
-🔗 [![Playwright Tests](https://github.com/LAttila-17/qa-playwright-portfolio/actions/workflows/playwright.yml/badge.svg)](https://github.com/LAttila-17/qa-playwright-portfolio/actions/workflows/playwright.yml)
+🔗 [![Playwright Tests](https://github.com/LAttila-17/qa-engineering-portfolio/actions/workflows/playwright.yml/badge.svg)](https://github.com/LAttila-17/qa-engineering-portfolio/actions/workflows/playwright.yml)
 
 *Runs automated Playwright tests on every push and pull request*
 
 
 ### Scheduled Report Publishing (daily)
 
-🔗 [![Publish Report](https://github.com/LAttila-17/qa-playwright-portfolio/actions/workflows/playwright-report.yml/badge.svg)](https://github.com/LAttila-17/qa-playwright-portfolio/actions/workflows/playwright-report.yml)
+🔗 [![Publish Report](https://github.com/LAttila-17/qa-engineering-portfolio/actions/workflows/playwright-report.yml/badge.svg)](https://github.com/LAttila-17/qa-engineering-portfolio/actions/workflows/playwright-report.yml)
 
 *Runs nightly and publishes the latest test report to GitHub Pages*
 
@@ -36,7 +36,7 @@
 
 View the latest report online:
 
-🔗 https://LAttila-17.github.io/qa-playwright-portfolio/
+🔗 https://LAttila-17.github.io/qa-engineering-portfolio/
 
 - **Automatically updated daily**
 - Publicly accessible
@@ -111,7 +111,7 @@ This portfolio includes **end-to-end scenarios** for:
 
 You can trigger a test run manually:
 
-🔗 https://github.com/LAttila-17/qa-playwright-portfolio/actions/workflows/playwright-report.yml
+🔗 https://github.com/LAttila-17/qa-engineering-portfolio/actions/workflows/playwright-report.yml
 
 Steps:
 1. Click **Run workflow**
