@@ -138,7 +138,7 @@ npx playwright show-report
 
 ## Report Preview
 
-![Playwright Report](./docs/report.jpg)
+![Playwright Report](./../../docs/Playwright-report.jpg)
 
 ---
 

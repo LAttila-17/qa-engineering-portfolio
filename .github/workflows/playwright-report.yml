@@ -1,0 +1,65 @@
+name: Publish Playwright Report
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 3 * * *'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  test-and-publish:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: automation/playwright
+
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: automation/playwright
+
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+        working-directory: automation/playwright
+
+      - name: Run tests
+        run: npx playwright test --reporter=html
+        working-directory: automation/playwright
+
+      - name: Check report
+        run: ls -la playwright-report
+        working-directory: automation/playwright
+
+      - name: Upload to GitHub Pages
+        if: always()
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: automation/playwright/playwright-report
+
+  deploy:
+    needs: test-and-publish
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Deploy
+        uses: actions/deploy-pages@v4
