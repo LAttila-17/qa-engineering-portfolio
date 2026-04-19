@@ -29,6 +29,10 @@ jobs:
         run: npm ci
         working-directory: automation/playwright
 
+      - name: Install mock API dependencies
+        run: npm ci
+        working-directory: mock-api
+
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
         working-directory: automation/playwright
