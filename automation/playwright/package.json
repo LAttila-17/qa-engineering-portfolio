@@ -7,11 +7,19 @@
     "test": "npx playwright test",
     "report": "npx playwright show-report"
   },
-  "keywords": ["playwright","qa","automation","typescript"],
+  "keywords": [
+    "playwright",
+    "qa",
+    "automation",
+    "typescript"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.58.2",
     "@types/node": "^25.5.0"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^10.4.0"
   }
 }

@@ -6,14 +6,14 @@ export type Post = {
   content: string;
 }
 
-export async function createPost(apiContext: APIRequestContext, token: string) {
+export async function createPost(apiContext: APIRequestContext, token: string, title: string, content: string): Promise<Post> {
   const response = await apiContext.post('/posts', {
     headers: {
       Authorization: `Bearer ${token}`
     },
     data: {
-      title: 'Test Post',
-      content: 'Playwright API test'
+      title,
+      content
     }
   });
 
@@ -32,13 +32,13 @@ export async function getPosts(apiContext: APIRequestContext, token: string): Pr
   return await response.json();
 }
 
-export async function updatePost(apiContext: APIRequestContext, token: string, id: number) {
+export async function updatePost(apiContext: APIRequestContext, token: string, id: number, title: string): Promise<Post> {
   const response = await apiContext.put(`/posts/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`
     },
     data: {
-      title: 'Updated Title'
+      title
     }
   });
 
@@ -53,5 +53,6 @@ export async function deletePost(apiContext: APIRequestContext, token: string, i
     }
   });
 
+  // For delete, we expect a 204 No Content status
   expect(response.status()).toBe(204);
 }
