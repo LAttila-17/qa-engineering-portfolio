@@ -33,7 +33,7 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install Playwrightdependencies
+      - name: Install Playwright dependencies
         run: npm ci
         working-directory: automation/playwright
 
