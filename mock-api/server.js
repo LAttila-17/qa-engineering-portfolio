@@ -1,16 +1,20 @@
 const express = require('express');
 const cors = require('cors');
 const { v4: uuidv4 } = require('uuid');
+const path = require('path');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
 const PORT = 3001;
 
 // In-memory DB
 const users = [
-  { id: 1, name: 'Test User', username: 'testlll', email: 'testlll@example.com', password: '123' }
+  { id: 1, name: 'Test User', username: 'testlll', email: 'testlll@example.com', password: '123'}/*,
+  { id: 2, name: 'Jane Doe', username: 'janedoe', email: 'janedoe@example.com', password: '456'}*/
+
 ];
 
 let posts = [
