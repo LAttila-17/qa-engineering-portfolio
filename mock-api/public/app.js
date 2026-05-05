@@ -1,33 +1,63 @@
 const token = localStorage.getItem('token');
+const testPostId = localStorage.getItem('testPostId');
 
 async function loadPosts() {
+  const status = document.getElementById('status');
+
   if (!token) {
-    console.error('No token found');
+    status.textContent = '❌ No token found';
     return;
   }
 
-  const response = await fetch('/posts', {
-    headers: {
-      Authorization: `Bearer ${token}`
+  try {
+    const response = await fetch('/posts', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    if (!response.ok) {
+      status.textContent = `❌ Failed (${response.status})`;
+      return;
     }
-  });
 
-  if (!response.ok) {
-    console.error('Failed to fetch posts', response.status);
-    return;
+    const posts = await response.json();
+
+    const container = document.getElementById('posts');
+    container.innerHTML = '';
+
+    posts.forEach(post => {
+      const div = document.createElement('div');
+      div.className = 'post';
+      div.setAttribute('data-id', post.id);
+
+      const isTestData = post.id == testPostId;
+
+      div.innerHTML = `
+        ${isTestData ? '<strong>🧪 TEST DATA</strong><br/>' : ''}
+        <strong>ID:</strong> ${post.id}<br/>
+        <strong>Title:</strong> ${post.title}<br/>
+        <strong>Content:</strong> ${post.content}<br/>
+        <strong>Created:</strong> ${new Date(post.createdAt).toLocaleString()}<br/>
+        <span style="color:${isTestData ? 'green' : 'gray'};">
+          ${isTestData ? '✔ Verified by E2E test' : '• Existing data'}
+        </span>
+      `;
+
+      if (isTestData) {
+        div.classList.add('highlight');
+      }
+
+      container.appendChild(div);
+    });
+
+    status.textContent = `✅ Loaded ${posts.length} posts`;
+
+  } catch (err) {
+    status.textContent = '❌ Network error';
+    console.error(err);
   }
-
-  const posts = await response.json();
-
-  const list = document.getElementById('posts');
-  list.innerHTML = '';
-
-  posts.forEach(post => {
-    const li = document.createElement('li');
-    li.textContent = post.title;
-    li.setAttribute('data-id', post.id);
-    list.appendChild(li);
-  });
 }
 
 loadPosts();
+setInterval(loadPosts, 1000);

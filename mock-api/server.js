@@ -12,16 +12,16 @@ const PORT = 3001;
 
 // In-memory DB
 const users = [
-  { id: 1, name: 'Test User', username: 'testlll', email: 'testlll@example.com', password: '123'}/*,
-  { id: 2, name: 'Jane Doe', username: 'janedoe', email: 'janedoe@example.com', password: '456'}*/
+  { id: 1, name: 'Test User', username: 'testlll', email: 'testlll@example.com', password: '123'}
 
 ];
 
 let posts = [
-  { id: 1, userId: 1, title: 'First Post', content: 'Hello World', createdAt: new Date() }
+  { id: '1', userId: 1, title: 'First Post', content: 'Hello World', createdAt: new Date() }
 ];
 
 let tokens = new Map();
+//let postIdCounter = 2;
 
 // --- LOGIN ---
 app.post('/login', (req, res) => {
@@ -45,7 +45,7 @@ app.post('/login', (req, res) => {
   res.json({ token });
 });
 
-// --- AUTH MIDDLEWARE ---
+// --- AUTH ---
 const authenticate = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
@@ -84,13 +84,13 @@ app.post('/posts', authenticate, (req, res) => {
     return res.status(400).json({ error: 'Title and content are required' });
   }
 
-  const newPost = {
-    id: posts.length + 1,
-    userId: 1,
-    title,
-    content,
-    createdAt: new Date()
-  };
+    const newPost = {
+      id: uuidv4(),
+      userId: 1,
+      title,
+      content,
+      createdAt: new Date()
+    };
 
   posts.push(newPost);
 
@@ -98,7 +98,8 @@ app.post('/posts', authenticate, (req, res) => {
 });
 
 app.put('/posts/:id', authenticate, (req, res) => {
-  const id = parseInt(req.params.id);
+  const id = req.params.id;
+
   const post = posts.find(p => p.id === id);
 
   if (!post) {
@@ -114,7 +115,7 @@ app.put('/posts/:id', authenticate, (req, res) => {
 });
 
 app.delete('/posts/:id', authenticate, (req, res) => {
-  const id = parseInt(req.params.id);
+  const id = req.params.id;
   const index = posts.findIndex(p => p.id === id);
 
   if (index === -1) {
@@ -126,6 +127,20 @@ app.delete('/posts/:id', authenticate, (req, res) => {
   res.status(204).send();
 });
 
+app.post('/reset', (req, res) => {
+  posts = [
+    { id: 1, userId: 1, title: 'First Post', content: 'Hello World', createdAt: new Date() }
+  ];
+
+  tokens.clear();
+
+  res.status(200).json({ message: 'Reset done' });
+});
+/*
 app.listen(PORT, () => {
   console.log(`Mock API running on http://localhost:${PORT}`);
+});*/
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`✅ API running: http://localhost:${PORT}`);
 });

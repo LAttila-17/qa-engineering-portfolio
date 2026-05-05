@@ -78,6 +78,7 @@ webServer: {
   command: 'npm run start',
   cwd: path.resolve(__dirname, '../../mock-api'),
   url: 'http://localhost:3001',
-  reuseExistingServer: true,
+  //url: 'http://127.0.0.1:3001',
+  reuseExistingServer: false,
 }
 });
