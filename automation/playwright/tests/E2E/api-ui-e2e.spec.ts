@@ -11,7 +11,7 @@ test.describe('API to UI E2E Tests', () => {
     const apiContext = await createApiContext();
 
     let token: string;
-    let postId: number;
+    let postId: string | number;
     let title: string;
     let updatedTitle: string;
 
@@ -31,11 +31,11 @@ test.describe('API to UI E2E Tests', () => {
       title = faker.lorem.words(3);
       const content = faker.lorem.sentence();
 
-      const post = await createPost(apiContext, token, title, content);
+      const { data: post, status: createStatus } = await createPost(apiContext, token, title, content);
       postId = post.id;
+      expect(createStatus).toBe(201);
       expect(post).toMatchObject({ title, content });
     });
-
     // 3. Inject token into browser and open UI
     await test.step('Open UI with Token', async () => {
       await page.addInitScript(({ token, postId }) => {
@@ -55,7 +55,8 @@ test.describe('API to UI E2E Tests', () => {
     // 5. Update post via API
     await test.step('API Update Post', async () => {
       updatedTitle = 'UPDATED ' + faker.lorem.words(2);
-      const updatedPost = await updatePost(apiContext, token, postId, updatedTitle);
+      const { data: updatedPost, status: updateStatus } = await updatePost(apiContext, token, postId, updatedTitle);
+      expect(updateStatus).toBe(200);
       expect(updatedPost).toMatchObject({ id: postId, title: updatedTitle });
     });
 
@@ -71,7 +72,8 @@ test.describe('API to UI E2E Tests', () => {
 
     // 8. Delete post via API
     await test.step('API Delete Post', async () => {
-      await deletePost(apiContext, token, postId);
+      const { status: deleteStatus } = await deletePost(apiContext, token, postId);
+      expect(deleteStatus).toBe(204);
     });
 
     // 9. Verify the post disappears from the UI

@@ -55,7 +55,8 @@ View the latest report online:
 This project is a QA Automation portfolio built with Playwright and TypeScript, showcasing:
 
 - End-to-end testing of real-world scenarios
-- Scalable test architecture
+- API testing and backend validation
+- UI automation with realistic user flows
 - CI/CD integration with automated pipelines
 - Public test reporting via GitHub Pages
 
@@ -71,36 +72,67 @@ This project is a QA Automation portfolio built with Playwright and TypeScript, 
 - **Node.js / npm**
 - GitHub Actions (**CI/CD**)
 - HTML **test reporting**
+- **Mock API** (Express.js)
 
 ---
 
 ## Test Coverage
 
-This portfolio includes **end-to-end scenarios** for:
+This portfolio includes **UI, API, and full E2E scenarios**:
+
+### UI Testing ###
 
 - Login functionality (valid / invalid cases)
 - Product inventory validation
 - Add to cart and cart state persistence
 - Checkout process (form validation and completion)
-- Error handling and validation messages
+- Error handling and validation messages 
+
+### API Testing ###
+- Authentication (login, token handling)
+- CRUD operations on posts
+- Response validation (status codes, payload structure)
+- Negative scenarios (invalid token, missing data)
+
+### End-to-End (API → UI) ###
+- Create data via API → verify in UI
+- Update data via API → verify UI sync
+- Delete data via API → verify removal in UI
+- Full flow validation across system layers
 
 ---
 
 ## Test Architecture
 
 - **Page Object Model** (POM) design pattern
-- **Separation** of test data, assertions, and page logic
-- **Reusable** components (header, navigation)
-- **Scalable** structure for adding new test scenarios
+- **API client** layer (auth, posts)
+- **Separation** of test logic, API calls, UI interactions
+- **Reusable** utilities (API context, data generation)
+- **Scalable** structure
 
 ---
+
+## E2E Strategy (Key Highlight)
+
+Core strengths of this portfolio:
+- Combines **API + UI testing in a single flow**
+- Uses API for **fast and reliable test data setup**
+- Uses UI for **real user validation**
+- Avoids flaky UI-only setups
+- Demonstrates **real-world QA approach**
+
+Example flow:
+
+*API → Create → UI Verify → API Update → UI Verify → API Delete → UI Verify*
+
 
 ## CI/CD Highlights
 
 - **Separate workflows** for test execution and report publishing
-  - **Automated** cross-browser test execution **on push**
+  - **Automated** test execution **on every push**
   - **Scheduled** nightly test runs
 - **Continuous validation** of test stability
+- **Parallel execution** enabled
 - HTML **report generation**
 - Public **report hosting** via GitHub Pages
 - Test **artifacts** available after pipeline runs
@@ -145,7 +177,8 @@ npx playwright show-report
 
 ## Future Improvements
 
-- API mocking and network interception
-- Advanced test scenarios
-- Test data parameterization
-- Parallel execution optimization
+- Advanced API validation (schema validation)
+- Test data isolation strategies for parallel runs
+- Contract testing (API layer)
+- More complex E2E scenarios
+- Performance / load testing integration
